@@ -3,68 +3,91 @@ import numpy as np
 import pickle
 from scipy.sparse import csr_matrix
 from sklearn.neighbors import NearestNeighbors
+import streamlit as st
+import wget
 
+#--------------Unpickling the pickled files-----------------
 
-rating_table = pickle.load(open("rating_table.pkl","rb"))
-books_image_data = pickle.load(open("books_image_data.pkl","rb"))
+rating_table = pickle.load(open("pickled/rating_table.pkl","rb"))
+books_image_data = pickle.load(open("pickled/books_image_data.pkl","rb"))
 
-books_name = rating_table.index.to_list()
-
+#----------------------Model fitting------------------------
 
 sparse_matrix = csr_matrix(rating_table)
 model = NearestNeighbors(algorithm='brute')
 model.fit(sparse_matrix)
 
+#-------------------Creating recommeder function---------------
 
-#Function for recommending books
+#This function takes a book name >><str> and returns a list of 5 books and their image link.
 def recommend(book_name):
+  """
+  @param -- <str> book_name.
+  @returns -- Two <list> of <str> 
+  """
   recommended_books = []
   image_url = []
+  #Extract the index of input book.
   book_index = np.where(rating_table.index==book_name)[0][0]
-  distances , suggestions = model.kneighbors(rating_table.iloc[book_index,:].values.reshape(1,-1),n_neighbors=5)
-  suggestions = np.ravel(suggestions, order='C') #2d to 1d array
+  distances , suggestions = model.kneighbors(rating_table.iloc[book_index,:].values.reshape(1,-1),n_neighbors=6)
+
+  #Convert suggested 2d array into 1d array.
+  suggestions = np.ravel(suggestions, order='C')
+
+  #Get recommended books name.
   for i in suggestions:
     recommended_books.append(rating_table.index[i])
 
+  #Get image link of those recommended books.
   for i in recommended_books:
     image_url.append(books_image_data[books_image_data["title"] == i ].image.to_string(index=False))
     
   return recommended_books,image_url
+#---------------Implementing model into web page-----------------
 
+#Refer streamlit documentation for frontend.
 
+st.subheader("Collaborative Filtering Based Books Recommender Engine") #Title
 
-
-
-
-
-import streamlit as st
-
-st.title("Book Recommendation Engine")
-
+#Extracting the books name from the loaded pickled rating table
+books_name = rating_table.index.to_list()
+#Dropdown select menu
 selected_book = st.selectbox(
-     'Search your books here',
+     'Search Your Book Here',
      books_name)
+    
+
 
 if st.button('Search'):
     books,images = recommend(selected_book) 
+    #This image download step is improvised to bypass the problem of herokun not showing images through link.
+    img1 = wget.download(images[0])
+    img2 = wget.download(images[1])
+    img3 = wget.download(images[2])
+    img4 = wget.download(images[3])
+    img5 = wget.download(images[4])
+    img6 = wget.download(images[5])
 
     container1 =st.container()
-    container1.header("YOU HAVE SEARCHED FOR -")
-    container1.header(books[0])
-    container1.image(images[0])
+    container1.subheader("You Searched For:")
+    container1.markdown(books[0])
+    container1.image(img1,width=120)
 
-    st.header("PEOPLE ALSO LIKED -")
-    col1, col2, col3,col4 = st.columns(4)
+    st.subheader("Users Also Liked:")
+    col1, col2, col3,col4,col5 = st.columns(5)
 
     with col1:
-        st.subheader(books[1])
-        st.image(images[1])
+        st.text(books[1])
+        st.image(img2,width=100)
     with col2:
-        st.subheader(books[2])
-        st.image(images[2])
+        st.text(books[2])
+        st.image(img3,width=100)
     with col3:
-        st.subheader(books[3])
-        st.image(images[3])
+        st.text(books[3])
+        st.image(img4,width=100)
     with col4:
-        st.subheader(books[4])
-        st.image(images[4])
+        st.text(books[4])
+        st.image(img5,width=100)
+    with col5:
+        st.text(books[5])
+        st.image(img6,width=100)
