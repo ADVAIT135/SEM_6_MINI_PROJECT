@@ -1,1 +1,1 @@
-web sg setup.sh && streamlit run book_recommend.py
+web: sh setup.sh && streamlit run app.py
