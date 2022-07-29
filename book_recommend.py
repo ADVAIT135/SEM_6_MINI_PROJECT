@@ -8,8 +8,8 @@ import wget
 
 #--------------Unpickling the pickled files-----------------
 
-rating_table = pickle.load(open("pickled/rating_table.pkl","rb"))
-books_image_data = pickle.load(open("pickled/books_image_data.pkl","rb"))
+rating_table = pickle.load(open("rating_table.pkl","rb"))
+books_image_data = pickle.load(open("books_image_data.pkl","rb"))
 
 #----------------------Model fitting------------------------
 
