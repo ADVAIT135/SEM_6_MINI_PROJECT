@@ -3,4 +3,4 @@ pandas
 scipy
 scikit-learn
 streamlit
-urllib.request
+requests
