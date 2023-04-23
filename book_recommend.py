@@ -5,6 +5,7 @@ from scipy.sparse import csr_matrix
 from sklearn.neighbors import NearestNeighbors
 import streamlit as st
 import urllib.request
+from PIL import Image
 
 #--------------Unpickling the pickled files-----------------
 
@@ -70,23 +71,23 @@ if st.button('Search'):
     container1 =st.container()
     container1.subheader("You Searched For:")
     container1.markdown(books[0])
-    container1.image(img1,width=120)
+    container1.image(Image.open(img1),width=120)
 
     st.subheader("Users Also Liked:")
     col1, col2, col3,col4,col5 = st.columns(5)
 
     with col1:
         st.text(books[1])
-        st.image(img2,width=100)
+        st.image(Image.open(img2),width=100)
     with col2:
         st.text(books[2])
-        st.image(img3,width=100)
+        st.image(Image.open(img3),width=100)
     with col3:
         st.text(books[3])
-        st.image(img4,width=100)
+        st.image(Image.open(img4),width=100)
     with col4:
         st.text(books[4])
-        st.image(img5,width=100)
+        st.image(Image.open(img5),width=100)
     with col5:
         st.text(books[5])
-        st.image(img6,width=100)
+        st.image(Image.open(img6),width=100)
