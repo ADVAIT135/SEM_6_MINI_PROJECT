@@ -4,8 +4,7 @@ import pickle
 from scipy.sparse import csr_matrix
 from sklearn.neighbors import NearestNeighbors
 import streamlit as st
-import urllib.request
-from PIL import Image
+import wget
 
 #--------------Unpickling the pickled files-----------------
 
@@ -61,33 +60,34 @@ selected_book = st.selectbox(
 
 if st.button('Search'):
     books,images = recommend(selected_book) 
-    img1, _ = urllib.request.urlretrieve(images[0].strip())
-    img2, _ = urllib.request.urlretrieve(images[1].strip())
-    img3, _ = urllib.request.urlretrieve(images[2].strip())
-    img4, _ = urllib.request.urlretrieve(images[3].strip())
-    img5, _ = urllib.request.urlretrieve(images[4].strip())
-    img6, _ = urllib.request.urlretrieve(images[5].strip())
+    #This image download step is improvised to bypass the problem of herokun not showing images through link.
+    img1 = wget.download(images[0])
+    img2 = wget.download(images[1])
+    img3 = wget.download(images[2])
+    img4 = wget.download(images[3])
+    img5 = wget.download(images[4])
+    img6 = wget.download(images[5])
 
     container1 =st.container()
     container1.subheader("You Searched For:")
     container1.markdown(books[0])
-    container1.image(Image.open(img1),width=120)
+    container1.image(img1,width=120)
 
     st.subheader("Users Also Liked:")
     col1, col2, col3,col4,col5 = st.columns(5)
 
     with col1:
         st.text(books[1])
-        st.image(Image.open(img2),width=100)
+        st.image(img2,width=100)
     with col2:
         st.text(books[2])
-        st.image(Image.open(img3),width=100)
+        st.image(img3,width=100)
     with col3:
         st.text(books[3])
-        st.image(Image.open(img4),width=100)
+        st.image(img4,width=100)
     with col4:
         st.text(books[4])
-        st.image(Image.open(img5),width=100)
+        st.image(img5,width=100)
     with col5:
         st.text(books[5])
-        st.image(Image.open(img6),width=100)
+        st.image(img6,width=100)
