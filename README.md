@@ -1,3 +1,15 @@
+---
+title: Book Recommendation Engine
+emoji: 📈
+colorFrom: gray
+colorTo: purple
+sdk: streamlit
+sdk_version: 1.19.0
+app_file: book_recommend.py
+pinned: false
+license: apache-2.0
+---
+
 # SEM_6_MINI_PROJECT
 Sem 6 MINI PROJECT on Book Recommendation System based on Collaborative Filtering
 <p align = "left">Site for viewing the delpoyed app : https://book-recommendation-engine-cf.herokuapp.com/ </p>
