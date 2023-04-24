@@ -17,4 +17,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push https://advait2901:$HF_TOKEN@huggingface.co/spaces/advait2901/book-recommendation-engine main
+        run: git push --force https://advait2901:$HF_TOKEN@huggingface.co/spaces/advait2901/book-recommendation-engine main
