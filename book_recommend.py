@@ -17,7 +17,7 @@ sparse_matrix = csr_matrix(rating_table)
 model = NearestNeighbors(algorithm='brute')
 model.fit(sparse_matrix)
 
-#-------------------Creating recommeder function---------------
+#-------------------Creating recommender function---------------
 
 #This function takes a book name >><str> and returns a list of 5 books and their image link.
 def recommend(book_name):
