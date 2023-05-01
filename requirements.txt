@@ -5,3 +5,4 @@ scikit-learn
 streamlit
 Pillow
 wget
+joblib
