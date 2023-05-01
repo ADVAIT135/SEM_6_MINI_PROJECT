@@ -4,7 +4,7 @@ from joblib import load
 from scipy.sparse import csr_matrix
 from sklearn.neighbors import NearestNeighbors
 import streamlit as st
-import wget
+import urllib.request
 
 #--------------Unpickling the pickled files-----------------
 
@@ -61,12 +61,12 @@ selected_book = st.selectbox(
 if st.button('Search'):
     books,images = recommend(selected_book) 
     #This image download step is improvised to bypass the problem of herokun not showing images through link.
-    img1 = wget.download(images[0])
-    img2 = wget.download(images[1])
-    img3 = wget.download(images[2])
-    img4 = wget.download(images[3])
-    img5 = wget.download(images[4])
-    img6 = wget.download(images[5])
+    img1, _ = urllib.request.urlretrieve(images[0].strip())
+    img2, _ = urllib.request.urlretrieve(images[1].strip())
+    img3, _ = urllib.request.urlretrieve(images[2].strip())
+    img4, _ = urllib.request.urlretrieve(images[3].strip())
+    img5, _ = urllib.request.urlretrieve(images[4].strip())
+    img6, _ = urllib.request.urlretrieve(images[5].strip())
 
     container1 =st.container()
     container1.subheader("You Searched For:")
