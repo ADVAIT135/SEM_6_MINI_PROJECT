@@ -4,5 +4,5 @@ scipy
 scikit-learn
 streamlit
 Pillow
-urllib.requests
+urllib.request
 joblib
