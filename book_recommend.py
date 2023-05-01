@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import pickle
+from joblib import load
 from scipy.sparse import csr_matrix
 from sklearn.neighbors import NearestNeighbors
 import streamlit as st
@@ -8,8 +8,8 @@ import wget
 
 #--------------Unpickling the pickled files-----------------
 
-rating_table = pickle.load(open("rating_table.pkl","rb"))
-books_image_data = pickle.load(open("books_image_data.pkl","rb"))
+rating_table = load('rating_table.joblib')
+books_image_data = load('books_image_data.joblib')
 
 #----------------------Model fitting------------------------
 
